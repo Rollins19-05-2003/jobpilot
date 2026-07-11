@@ -12,7 +12,9 @@ from pydantic import BaseModel
 
 from .. import config
 from ..db import (COMPANY_STATUSES, CONTACT_STATUSES, EMAIL_SOURCES, PERSONAS,
-                  PRIORITIES, Company, Contact, SessionLocal)
+                  PRIORITIES, TEMPLATE_VERSIONS, Company, Contact,
+                  OutreachDraft, SessionLocal)
+from . import drafter
 
 log = logging.getLogger("jobpilot.outreach")
 
@@ -187,3 +189,86 @@ def update_contact(contact_id: int, body: ContactUpdate) -> dict:
             contact.company.status = "outreaching"
         s.commit()
         return contact.as_dict()
+
+
+# ------------------------------------------------------------------- drafts
+
+@router.post("/outreach/draft/{contact_id}")
+def draft_outreach(contact_id: int, version: str | None = Query(default=None)) -> dict:
+    """Generate an outreach draft for a contact. version=A|B|followup;
+    if omitted, picked from persona (eng_manager -> B, everyone else -> A).
+    Drafts are stored and returned — sending is always manual."""
+    with SessionLocal() as s:
+        contact = s.get(Contact, contact_id)
+        if not contact:
+            raise HTTPException(404, "contact not found")
+        if not (contact.hook or "").strip():
+            raise HTTPException(
+                400,
+                "contact has no hook — add one specific line about them/their team first "
+                "(PATCH /contacts/{id}). Hook-less emails are generic spam and burn contacts.",
+            )
+        if version is None:
+            version = "B" if contact.persona == "eng_manager" else "A"
+        if version not in TEMPLATE_VERSIONS:
+            raise HTTPException(400, f"version must be one of {TEMPLATE_VERSIONS}")
+
+        original = None
+        if version == "followup":
+            last = (
+                s.query(OutreachDraft)
+                .filter(OutreachDraft.contact_id == contact_id,
+                        OutreachDraft.template_version != "followup")
+                .order_by(OutreachDraft.generated_at.desc()).first()
+            )
+            if not last:
+                raise HTTPException(400, "no original draft to follow up on — draft version A or B first")
+            original = {"subject": last.subject, "body": last.body}
+
+        company = contact.company.as_dict() if contact.company else {}
+        result = drafter.draft(
+            profile=config.load_profile(), contact=contact.as_dict(),
+            company=company, version=version, original=original,
+        )
+        if result is None:
+            raise HTTPException(502, "drafting failed — check GEMINI_API_KEY and API logs")
+
+        row = OutreachDraft(
+            contact_id=contact_id, template_version=version,
+            subject=result["subject"], body=result["body"],
+        )
+        s.add(row)
+        if contact.status == "identified":
+            contact.status = "drafted"
+        s.commit()
+        return row.as_dict()
+
+
+@router.get("/outreach/drafts")
+def list_drafts(contact_id: int | None = Query(default=None)) -> list[dict]:
+    with SessionLocal() as s:
+        q = s.query(OutreachDraft)
+        if contact_id:
+            q = q.filter(OutreachDraft.contact_id == contact_id)
+        return [d.as_dict() for d in q.order_by(OutreachDraft.generated_at.desc()).limit(200).all()]
+
+
+class DraftUpdate(BaseModel):
+    subject: str | None = None
+    body: str | None = None
+
+
+@router.patch("/outreach/drafts/{draft_id}")
+def update_draft(draft_id: int, body: DraftUpdate) -> dict:
+    """Save your manual edits back so the tracker/export reflects what you actually sent."""
+    with SessionLocal() as s:
+        row = s.get(OutreachDraft, draft_id)
+        if not row:
+            raise HTTPException(404, "draft not found")
+        if body.subject is not None:
+            row.subject = body.subject
+        if body.body is not None:
+            row.body = body.body
+        row.edited = True
+        s.commit()
+        return row.as_dict()
