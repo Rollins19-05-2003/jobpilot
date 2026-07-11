@@ -16,7 +16,7 @@ from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 
 from . import config, telegram
-from .db import STATUSES, Job, SessionLocal, init_db, upsert_job
+from .db import STATUSES, Contact, Job, SessionLocal, init_db, upsert_job
 from .ingest.sources import fetch_all
 from .outreach.router import router as outreach_router
 from .scoring.engine import score_job
@@ -84,6 +84,8 @@ def score(limit: int = 30) -> dict:
 
 @app.post("/digest")
 def digest() -> dict:
+    from .outreach.router import due_followups
+
     with SessionLocal() as s:
         today = (
             s.query(Job)
@@ -92,9 +94,12 @@ def digest() -> dict:
         )
         new_count = s.query(Job).filter(Job.status == "found").count()
         jobs = [j.as_dict() for j in today]
-    text = telegram.build_digest(jobs, new_count)
+        followups = [c.as_dict() for c in due_followups(s)]
+        replies_pending = s.query(Contact).filter(Contact.status == "replied").count()
+    outreach = telegram.build_outreach_section(followups, replies_pending)
+    text = telegram.build_digest(jobs, new_count, outreach)
     sent = telegram.send(text)
-    return {"sent": sent, "jobs_in_digest": len(jobs)}
+    return {"sent": sent, "jobs_in_digest": len(jobs), "followups_due": len(followups)}
 
 
 @app.post("/pipeline/run")

@@ -5,12 +5,12 @@ tracks, but a human presses Send. That keeps it inside every platform's ToS
 and every mail provider's good graces.
 """
 import logging
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
-from .. import config
+from .. import config, telegram
 from ..db import (COMPANY_STATUSES, CONTACT_STATUSES, EMAIL_SOURCES, PERSONAS,
                   PRIORITIES, TEMPLATE_VERSIONS, Company, Contact,
                   OutreachDraft, SessionLocal)
@@ -272,3 +272,70 @@ def update_draft(draft_id: int, body: DraftUpdate) -> dict:
         row.edited = True
         s.commit()
         return row.as_dict()
+
+
+# ----------------------------------------------- follow-up discipline + stats
+
+def due_followups(session) -> list[Contact]:
+    """Sent (or opened) >= FOLLOW_UP_AFTER_DAYS days ago, no reply, no follow-up yet.
+    'opened' counts too — an opened-but-unanswered email is prime follow-up material."""
+    cutoff = datetime.now(timezone.utc) - timedelta(days=config.FOLLOW_UP_AFTER_DAYS)
+    return (
+        session.query(Contact)
+        .filter(
+            Contact.status.in_(["sent", "opened"]),
+            Contact.follow_up_sent.is_(False),
+            Contact.date_sent.isnot(None),
+            Contact.date_sent <= cutoff,
+        )
+        .order_by(Contact.date_sent)
+        .all()
+    )
+
+
+@router.get("/outreach/followups-due")
+def followups_due() -> list[dict]:
+    with SessionLocal() as s:
+        return [c.as_dict() for c in due_followups(s)]
+
+
+@router.get("/outreach/stats")
+def outreach_stats() -> dict:
+    with SessionLocal() as s:
+        total = s.query(Contact).count()
+        sent = s.query(Contact).filter(Contact.date_sent.isnot(None)).count()
+        follow_ups_sent = s.query(Contact).filter(Contact.follow_up_sent.is_(True)).count()
+        replies = s.query(Contact).filter(Contact.status.in_(["replied", "meeting"])).count()
+        meetings = s.query(Contact).filter(Contact.status == "meeting").count()
+        by_status = {
+            status: s.query(Contact).filter(Contact.status == status).count()
+            for status in CONTACT_STATUSES
+        }
+        companies_touched = (
+            s.query(Contact.company_id).filter(Contact.date_sent.isnot(None)).distinct().count()
+        )
+        stats = {
+            "contacts_total": total,
+            "sent": sent,
+            "follow_ups_sent": follow_ups_sent,
+            "replies": replies,
+            "meetings": meetings,
+            "reply_rate_pct": round(100 * replies / sent, 1) if sent else 0.0,
+            "followups_due": len(due_followups(s)),
+            "companies_touched": companies_touched,
+            "by_status": by_status,
+        }
+    # The one rule that matters: volume without replies means the MESSAGE is
+    # broken, not the market. Surface it loudly instead of letting sends pile up.
+    if sent >= 30 and replies == 0:
+        stats["advice"] = "0% reply rate after 30+ sends — STOP sending and rewrite your hook."
+    return stats
+
+
+@router.post("/outreach/weekly-review")
+def weekly_review() -> dict:
+    """Monday-morning Telegram summary — n8n hits this weekly."""
+    stats = outreach_stats()
+    text = telegram.build_weekly_review(stats)
+    sent = telegram.send(text)
+    return {"sent": sent, "stats": stats}

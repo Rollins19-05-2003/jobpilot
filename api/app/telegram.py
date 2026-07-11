@@ -29,7 +29,24 @@ def _fmt_job(rank: int, j: dict) -> str:
     )
 
 
-def build_digest(jobs: list[dict], new_count: int) -> str:
+def build_outreach_section(followups: list[dict], replies_pending: int) -> str:
+    """The outreach block appended to the daily digest. Empty string if quiet."""
+    if not followups and not replies_pending:
+        return ""
+    lines = ["", "📮 <b>Outreach</b>"]
+    if followups:
+        lines.append(f"<b>{len(followups)}</b> follow-ups due today:")
+        for c in followups[:10]:
+            name = f"{c.get('first_name', '')} {c.get('last_name', '')}".strip()
+            lines.append(f"  • {name} — {c.get('company') or '?'}")
+        if len(followups) > 10:
+            lines.append(f"  …and {len(followups) - 10} more")
+    if replies_pending:
+        lines.append(f"🎉 <b>{replies_pending}</b> replies waiting on YOUR next move")
+    return "\n".join(lines) + "\n"
+
+
+def build_digest(jobs: list[dict], new_count: int, outreach_section: str = "") -> str:
     strong = [j for j in jobs if (j.get("fit_score") or 0) >= config.STRONG_FIT]
     header = (
         f"☀️ <b>JobPilot Daily</b>\n"
@@ -37,9 +54,35 @@ def build_digest(jobs: list[dict], new_count: int) -> str:
         f"<b>{len(strong)}</b> strong fits (≥{config.STRONG_FIT}%).\n\n"
     )
     if not jobs:
-        return header + "Nothing worth your time today. Go build something instead 💪"
-    body = "\n".join(_fmt_job(i + 1, j) for i, j in enumerate(jobs[:8]))
-    return header + body
+        body = "Nothing worth your time today. Go build something instead 💪"
+    else:
+        body = "\n".join(_fmt_job(i + 1, j) for i, j in enumerate(jobs[:8]))
+    # send() hard-truncates at 4000 chars; jobs cap at 8 and follow-ups at 10,
+    # which keeps a full digest comfortably inside Telegram's 4096 limit.
+    return header + body + outreach_section
+
+
+def build_weekly_review(stats: dict) -> str:
+    pipeline = " · ".join(
+        f"{status} <b>{count}</b>"
+        for status, count in (stats.get("by_status") or {}).items() if count
+    )
+    lines = [
+        "📊 <b>JobPilot Weekly Outreach Review</b>",
+        f"Sent: <b>{stats.get('sent', 0)}</b> first emails, "
+        f"<b>{stats.get('follow_ups_sent', 0)}</b> follow-ups, "
+        f"across <b>{stats.get('companies_touched', 0)}</b> companies",
+        f"Replies: <b>{stats.get('replies', 0)}</b> "
+        f"(reply rate <b>{stats.get('reply_rate_pct', 0)}%</b>) | "
+        f"Meetings: <b>{stats.get('meetings', 0)}</b>",
+        f"Follow-ups due now: <b>{stats.get('followups_due', 0)}</b>",
+    ]
+    if pipeline:
+        lines.append(f"Pipeline: {pipeline}")
+    if stats.get("advice"):
+        lines.append(f"\n⚠️ <b>{stats['advice']}</b>")
+    lines.append("\nKeep it human: ≤10 sends/day, 9–11 AM recipient time, hooks first.")
+    return "\n".join(lines)
 
 
 def send(text: str) -> bool:
