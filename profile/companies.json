@@ -1,0 +1,510 @@
+{
+  "_comment": "50 target companies, tiered for Sourav's profile (backend, Python/GCP, 0-4 yrs, Bangalore/India-remote). Loaded via POST /companies/seed (idempotent, matched by name). Entries with \"verify\": true need a manual check that they exist / are actively hiring before outreach. Edit freely and re-seed.",
+  "companies": [
+    {
+      "name": "Google",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India",
+      "why_target": "Daily GCP user (BigQuery, Cloud Run, Cloud Tasks) — rare early-career signal for Google Cloud teams",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Google%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.google.com/about/careers/applications/jobs/results/?location=Bangalore",
+      "priority": "high"
+    },
+    {
+      "name": "Microsoft",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore / Hyderabad, India",
+      "why_target": "IDC hires SDE-1/2 at scale; Python + large-scale pipeline experience maps to Azure Data teams",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Microsoft%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://careers.microsoft.com/v2/global/en/locations/india",
+      "priority": "med"
+    },
+    {
+      "name": "Amazon",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India",
+      "why_target": "SDE-1 loops reward strong DSA (1000+ problems) + cost-optimization stories (83% per-SKU cut)",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Amazon%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.amazon.jobs/en/locations/bangalore-india",
+      "priority": "high"
+    },
+    {
+      "name": "Atlassian",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India (remote-friendly)",
+      "why_target": "Java/Python backend, distributed-first culture, strong P4/P5 early-career band in India",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Atlassian%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.atlassian.com/company/careers/all-jobs",
+      "priority": "high"
+    },
+    {
+      "name": "Uber",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India",
+      "why_target": "Bangalore is Uber's largest eng hub outside the US; heavy backend + data-pipeline hiring",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Uber%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.uber.com/us/en/careers/list/?location=IND-Karnataka-Bangalore",
+      "priority": "med"
+    },
+    {
+      "name": "Walmart Global Tech",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India",
+      "why_target": "Retail-catalog scale = my product-feed pipelines (2-5 crore records/brand); Java+Python stack",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Walmart%20Global%20Tech%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://tech.walmart.com/content/walmart-global-tech/en_us/careers.html",
+      "priority": "med"
+    },
+    {
+      "name": "Salesforce",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore / Hyderabad, India",
+      "why_target": "Platform/backend engineering with big AI push (Agentforce) — LLM orchestration experience lands",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Salesforce%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://careers.salesforce.com/en/jobs/",
+      "priority": "med"
+    },
+    {
+      "name": "Adobe",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore / Noida, India",
+      "why_target": "Backend + ML-platform roles; experimentation-module latency work (-70%) is a direct hook",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Adobe%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://careers.adobe.com/us/en/search-results?keywords=bangalore",
+      "priority": "med"
+    },
+    {
+      "name": "Cisco",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India",
+      "why_target": "Cloud/platform engineering teams in Bangalore hire Python-first backend engineers",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Cisco%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://jobs.cisco.com/jobs/SearchJobs/?21178=%5B187%5D&21178_format=6020",
+      "priority": "low"
+    },
+    {
+      "name": "Intuit",
+      "tier": 1,
+      "tier_label": "Big Tech",
+      "hq_location": "Bangalore, India",
+      "why_target": "Fintech-scale backend + GenAI platform (GenOS); values measurable cost/latency wins",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Intuit%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://jobs.intuit.com/search-jobs/bangalore",
+      "priority": "high"
+    },
+    {
+      "name": "Razorpay",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Payments-scale Python/Go backend; strong SDE-1/2 ladder; already on my Greenhouse ingest",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Razorpay%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://razorpay.com/jobs/",
+      "priority": "high"
+    },
+    {
+      "name": "CRED",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "High-craft backend culture; my latency (-70%) and pipeline (12000s→11s) numbers fit their bar",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=CRED%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://careers.cred.club/",
+      "priority": "high"
+    },
+    {
+      "name": "Groww",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Fintech backend at retail-investor scale; Java+Python; already on my Greenhouse ingest",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Groww%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://groww.in/careers",
+      "priority": "high"
+    },
+    {
+      "name": "Zerodha",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Tiny elite eng team, Python-heavy, profitability-focused — cost-cut stories resonate",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Zerodha%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://zerodha.com/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "Swiggy",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Massive real-time backend (Java/Python/Go); dedicated ML-platform org for LLM skills",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Swiggy%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://careers.swiggy.com/",
+      "priority": "med"
+    },
+    {
+      "name": "Zepto",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Hypergrowth q-commerce; hires aggressively at 1-3 yrs; catalog/feed systems = my domain",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Zepto%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.zeptonow.com/careers",
+      "priority": "high"
+    },
+    {
+      "name": "Meesho",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "E-commerce catalog + feeds at crore-record scale — literally my day job at Quantacus",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Meesho%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.meesho.io/jobs",
+      "priority": "high"
+    },
+    {
+      "name": "PhonePe",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "India's biggest UPI backend; Java-heavy with strong SDE-1/2 hiring in Bangalore",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=PhonePe%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.phonepe.com/careers/",
+      "priority": "high"
+    },
+    {
+      "name": "Postman",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "API-first product, dev-tools DNA; FastAPI + API-latency work is on-brand; on my Greenhouse ingest",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Postman%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.postman.com/company/careers/",
+      "priority": "high"
+    },
+    {
+      "name": "Lenskart",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore / Gurgaon, India",
+      "why_target": "Omnichannel retail backend + supply chain; product-catalog pipelines match my experience",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Lenskart%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://hiring.lenskart.com/",
+      "priority": "low"
+    },
+    {
+      "name": "ShareChat",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Feed + recommendation backend at 100M+ MAU scale; Python/Go services",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=ShareChat%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://sharechat.com/careers",
+      "priority": "low"
+    },
+    {
+      "name": "Games24x7",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore / Mumbai, India",
+      "why_target": "Real-money gaming = low-latency, high-concurrency backend; Java + data science heavy",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Games24x7%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.games24x7.com/careers",
+      "priority": "low"
+    },
+    {
+      "name": "Zetwerk",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Bangalore, India",
+      "why_target": "Manufacturing marketplace; supply-chain/catalog backend in Java/Python",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Zetwerk%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.zetwerk.com/careers/",
+      "priority": "low"
+    },
+    {
+      "name": "Darwinbox",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Hyderabad / Bangalore, India",
+      "why_target": "HR-tech SaaS scaling globally; backend + platform roles at 1-4 yrs band",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Darwinbox%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://darwinbox.com/careers",
+      "priority": "low"
+    },
+    {
+      "name": "Chargebee",
+      "tier": 2,
+      "tier_label": "Unicorn",
+      "hq_location": "Chennai / remote India",
+      "why_target": "Billing infra SaaS; API-quality obsessed; remote-India friendly; on my Greenhouse ingest",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Chargebee%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.chargebee.com/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "Hasura",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore / remote India",
+      "why_target": "Data-API infra (PromptQL push into AI); small teams, high ownership; on my Greenhouse ingest",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Hasura%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://hasura.io/careers",
+      "priority": "high"
+    },
+    {
+      "name": "CleverTap",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Mumbai / Bangalore, India",
+      "why_target": "Martech at billions-of-events scale; my Google/Meta feed-automation work is adjacent",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=CleverTap%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://clevertap.com/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "Whatfix",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "SaaS scaling into AI-guidance; Java/Python backend; on my Lever ingest",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Whatfix%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://whatfix.com/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "MoEngage",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "Customer-engagement pipelines (Python, streaming) — same shape as my brand-feed pipelines",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=MoEngage%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.moengage.com/careers/",
+      "priority": "high"
+    },
+    {
+      "name": "Exotel",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "CPaaS/voice infra adding AI agents; backend reliability engineering focus",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Exotel%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://exotel.com/about-us/careers/",
+      "priority": "low"
+    },
+    {
+      "name": "Slice",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "Fintech turned small-finance-bank; core banking backend build-out at 1-4 yrs band",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Slice%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.sliceit.com/careers",
+      "priority": "med"
+    },
+    {
+      "name": "Jupiter",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore / Mumbai, India",
+      "why_target": "Neo-banking backend (Kotlin/Java/Python); early-career friendly product org",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Jupiter%20money%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://jupiter.money/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "Setu",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "API-first fintech infra (account aggregator, UPI); FastAPI-style dev culture, small teams",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Setu%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://setu.co/careers",
+      "priority": "high"
+    },
+    {
+      "name": "Increff",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "Retail merchandising SaaS — catalog/inventory pipelines mirror my feed-automation work",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Increff%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.increff.com/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "Rippling",
+      "tier": 3,
+      "tier_label": "Mid-size product",
+      "hq_location": "Bangalore, India",
+      "why_target": "Python/Django monorepo at scale; Bangalore office pays top-of-market for backend",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Rippling%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.rippling.com/careers",
+      "priority": "high"
+    },
+    {
+      "name": "Juspay",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "Payments infra processing most of India's online transactions; deep backend engineering culture",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Juspay%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://juspay.io/careers",
+      "priority": "high"
+    },
+    {
+      "name": "Smallcase",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "Investing infra; Node/Python backend; small product-focused teams at my seniority band",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Smallcase%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.smallcase.com/careers",
+      "priority": "med"
+    },
+    {
+      "name": "Jar",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "Micro-savings fintech; lean backend team, Python/Kotlin; hires 1-3 yrs",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Jar%20app%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.myjar.app/careers",
+      "priority": "med",
+      "verify": true
+    },
+    {
+      "name": "Atlan",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Remote (India)",
+      "why_target": "Data-catalog/metadata infra — BigQuery-heavy customers; remote-India, strong eng brand",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Atlan%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://atlan.com/careers",
+      "priority": "high"
+    },
+    {
+      "name": "Hevo Data",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "Data-pipeline product (ELT) — my 12,000s→11s pipeline story is their exact domain",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Hevo%20Data%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://hevodata.com/careers/",
+      "priority": "high",
+      "verify": true
+    },
+    {
+      "name": "Sarvam AI",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "India's sovereign-LLM lab; LLM-orchestration + GCP pipeline experience is directly relevant",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Sarvam%20AI%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.sarvam.ai/careers",
+      "priority": "high",
+      "verify": true
+    },
+    {
+      "name": "DevRev",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "AI-native support/CRM platform; heavy backend + LLM-pipeline hiring in Bangalore",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=DevRev%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://devrev.ai/careers",
+      "priority": "med"
+    },
+    {
+      "name": "Cashfree Payments",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "Payments APIs; Java/Python backend; values API-latency and reliability work",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Cashfree%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.cashfree.com/careers/",
+      "priority": "med"
+    },
+    {
+      "name": "Last9",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore / remote India",
+      "why_target": "Observability infra startup; small senior team — 'ask for advice' outreach fits perfectly",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Last9%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://last9.io/careers",
+      "priority": "med",
+      "verify": true
+    },
+    {
+      "name": "Portkey",
+      "tier": 4,
+      "tier_label": "Funded startup",
+      "hq_location": "Bangalore, India",
+      "why_target": "LLM gateway/AI-infra — my production LLM-orchestration at 2-5 crore records is their core pitch",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Portkey%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://portkey.ai/careers",
+      "priority": "high",
+      "verify": true
+    },
+    {
+      "name": "GitLab",
+      "tier": 5,
+      "tier_label": "Remote-friendly global",
+      "hq_location": "Remote (global, hires in India)",
+      "why_target": "All-remote, async culture; Ruby/Go but platform+data teams use Python; transparent hiring",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=GitLab%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://about.gitlab.com/jobs/",
+      "priority": "med"
+    },
+    {
+      "name": "Zapier",
+      "tier": 5,
+      "tier_label": "Remote-friendly global",
+      "hq_location": "Remote (global)",
+      "why_target": "Automation product built on Python; my n8n/LLM-pipeline side projects are on-thesis",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Zapier%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://zapier.com/jobs",
+      "priority": "med"
+    },
+    {
+      "name": "Deel",
+      "tier": 5,
+      "tier_label": "Remote-friendly global",
+      "hq_location": "Remote (global, hires in India)",
+      "why_target": "Global payroll infra scaling fast; hires remote backend engineers in India",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Deel%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.deel.com/careers/",
+      "priority": "low"
+    },
+    {
+      "name": "Turing",
+      "tier": 5,
+      "tier_label": "Remote-friendly global",
+      "hq_location": "Remote (global, large India base)",
+      "why_target": "Matches Indian engineers to US teams + growing LLM-training business; low-friction entry",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Turing%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://www.turing.com/jobs",
+      "priority": "low"
+    },
+    {
+      "name": "Canonical",
+      "tier": 5,
+      "tier_label": "Remote-friendly global",
+      "hq_location": "Remote (global)",
+      "why_target": "Ubuntu-maker, fully remote, famously hires globally at all levels; Python-first stack",
+      "linkedin_people_url": "https://www.linkedin.com/search/results/people/?keywords=Canonical%20recruiter%20OR%20talent%20acquisition",
+      "careers_url": "https://canonical.com/careers/all",
+      "priority": "med"
+    }
+  ]
+}

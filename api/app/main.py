@@ -18,12 +18,14 @@ from pydantic import BaseModel
 from . import config, telegram
 from .db import STATUSES, Job, SessionLocal, init_db, upsert_job
 from .ingest.sources import fetch_all
+from .outreach.router import router as outreach_router
 from .scoring.engine import score_job
 
 logging.basicConfig(level=logging.INFO, format="%(name)s | %(message)s")
 log = logging.getLogger("jobpilot")
 
-app = FastAPI(title="JobPilot", version="0.1.0")
+app = FastAPI(title="JobPilot", version="0.2.0")
+app.include_router(outreach_router)
 
 
 @app.on_event("startup")

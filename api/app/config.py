@@ -29,10 +29,20 @@ MIN_FIT_TO_KEEP = int(os.getenv("MIN_FIT_TO_KEEP", "40"))
 #   boards.greenhouse.io/<slug>   |   jobs.lever.co/<slug>
 TARGETS_FILE = BASE_DIR / "profile" / "targets.json"
 PROFILE_FILE = BASE_DIR / "profile" / "profile.json"
+COMPANIES_FILE = BASE_DIR / "profile" / "companies.json"
+
+# --- Outreach ---
+FOLLOW_UP_AFTER_DAYS = int(os.getenv("FOLLOW_UP_AFTER_DAYS", "5"))
 
 
 def load_profile() -> dict:
     return json.loads(PROFILE_FILE.read_text())
+
+
+def load_companies() -> list[dict]:
+    if COMPANIES_FILE.exists():
+        return json.loads(COMPANIES_FILE.read_text()).get("companies", [])
+    return []
 
 
 def load_targets() -> dict:
