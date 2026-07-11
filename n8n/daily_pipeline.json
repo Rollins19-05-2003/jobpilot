@@ -1,0 +1,57 @@
+{
+  "name": "JobPilot Daily Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "0 8 * * *" }
+          ]
+        }
+      },
+      "name": "Every day 8 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/ingest",
+        "options": { "timeout": 120000 }
+      },
+      "name": "Ingest jobs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/score",
+        "options": { "timeout": 300000 }
+      },
+      "name": "Score with Gemini",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://api:8000/digest",
+        "options": { "timeout": 60000 }
+      },
+      "name": "Send Telegram digest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [660, 0]
+    }
+  ],
+  "connections": {
+    "Every day 8 AM": { "main": [[{ "node": "Ingest jobs", "type": "main", "index": 0 }]] },
+    "Ingest jobs": { "main": [[{ "node": "Score with Gemini", "type": "main", "index": 0 }]] },
+    "Score with Gemini": { "main": [[{ "node": "Send Telegram digest", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}

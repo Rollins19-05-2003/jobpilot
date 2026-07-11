@@ -1,0 +1,28 @@
+{
+  "name": "Sourav Deb",
+  "location": "Bangalore, India",
+  "current_role": "Backend Software Engineer at Quantacus.ai",
+  "experience_years": 1.3,
+  "target_roles": ["Backend Engineer", "SDE-1", "SDE-2", "Software Engineer - Backend", "Python Developer", "Platform Engineer"],
+  "target_locations": ["Bangalore", "Bengaluru", "Remote (India)", "Hybrid Bangalore"],
+  "skills": {
+    "languages": ["Python", "Java", "SQL"],
+    "frameworks": ["FastAPI"],
+    "cloud": ["GCP", "BigQuery", "Cloud Run", "Cloud Tasks", "Cloud Scheduler"],
+    "ai": ["LLM orchestration", "OpenAI API", "prompt engineering", "AI pipelines"],
+    "foundations": ["DSA (1000+ problems)", "OOP", "System Design (learning)"]
+  },
+  "highlights": [
+    "Builds backend systems that orchestrate LLMs to automate and scale product feeds for Google and Meta, processing 2-5 crore records per brand across 20+ brands",
+    "Cut product processing cost ~83% (Rs. 3 to Rs. 0.5 per SKU)",
+    "Redesigned a pipeline from 12,000+ seconds to 11 seconds",
+    "Reduced API latency ~70% in a large-scale experimentation module"
+  ],
+  "education": "B.Tech CSE, RIT Roorkee, 2025",
+  "preferences": {
+    "min_experience_ok": 0,
+    "max_experience_ok": 4,
+    "avoid_keywords": ["staff engineer", "principal", "10+ years", "engineering manager"],
+    "prefer_keywords": ["python", "fastapi", "backend", "gcp", "llm", "ai", "distributed", "microservices", "java"]
+  }
+}
