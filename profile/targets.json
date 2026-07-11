@@ -1,24 +1,25 @@
 {
   "_comment": "Board slugs, not display names. Verify each: boards-api.greenhouse.io/v1/boards/<slug>/jobs, api.lever.co/v0/postings/<slug>, api.ashbyhq.com/posting-api/job-board/<slug>, api.smartrecruiters.com/v1/companies/<slug>/postings, apply.workable.com/api/v1/widget/accounts/<slug>. Add/remove freely.",
   "_comment_jsearch": "jsearch_queries run only when RAPIDAPI_KEY is set — free tier is ~200 req/month, so keep it to ~6 queries.",
+  "_comment_verified": "Every slug below returned live jobs on 2026-07-12. Razorpay/Hasura/Chargebee/CleverTap left the free ATS APIs — reach them via JSearch queries or the outreach tracker instead.",
   "greenhouse": [
-    "razorpay",
     "groww",
     "postman",
-    "hasura",
-    "chargebee",
-    "clevertap"
+    "phonepe",
+    "netradyne"
   ],
   "lever": [
-    "netradyne",
     "zeta",
-    "whatfix"
+    "cred"
   ],
   "ashby": [
-    "supabase"
+    "supabase",
+    "atlan",
+    "sarvam"
   ],
   "smartrecruiters": [
-    "ServiceNow"
+    "ServiceNow",
+    "whatfix"
   ],
   "workable": [],
   "jsearch_queries": [
