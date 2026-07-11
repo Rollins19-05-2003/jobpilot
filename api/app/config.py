@@ -17,6 +17,10 @@ GEMINI_URL = (
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
+# --- JSearch via RapidAPI (optional; free tier ~200 req/month) ---
+# Aggregates Google-for-Jobs (LinkedIn/Naukri/Indeed postings) legally.
+RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "")
+
 # --- Database: SQLite locally, swap DATABASE_URL for Supabase Postgres later ---
 DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'jobpilot.db'}")
 

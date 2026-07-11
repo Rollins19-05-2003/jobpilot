@@ -1,5 +1,6 @@
 {
-  "_comment": "Board slugs, not display names. Verify each at boards-api.greenhouse.io/v1/boards/<slug>/jobs or api.lever.co/v0/postings/<slug>. Add/remove freely.",
+  "_comment": "Board slugs, not display names. Verify each: boards-api.greenhouse.io/v1/boards/<slug>/jobs, api.lever.co/v0/postings/<slug>, api.ashbyhq.com/posting-api/job-board/<slug>, api.smartrecruiters.com/v1/companies/<slug>/postings, apply.workable.com/api/v1/widget/accounts/<slug>. Add/remove freely.",
+  "_comment_jsearch": "jsearch_queries run only when RAPIDAPI_KEY is set — free tier is ~200 req/month, so keep it to ~6 queries.",
   "greenhouse": [
     "razorpay",
     "groww",
@@ -12,6 +13,18 @@
     "netradyne",
     "zeta",
     "whatfix"
+  ],
+  "ashby": [
+    "supabase"
+  ],
+  "smartrecruiters": [
+    "ServiceNow"
+  ],
+  "workable": [],
+  "jsearch_queries": [
+    "backend engineer bangalore",
+    "python developer bangalore",
+    "SDE backend python remote india"
   ],
   "keywords_title": ["backend", "software engineer", "sde", "python", "platform"],
   "keywords_location": ["bangalore", "bengaluru", "remote", "india"]
