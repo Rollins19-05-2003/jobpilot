@@ -13,7 +13,7 @@ n8n (cron)
    ├─ daily 8 AM ──► POST /pipeline/run
    │                   ├─► /ingest   Greenhouse · Lever · Ashby · SmartRecruiters
    │                   │             · Workable · JSearch* ──► dedup ──► DB
-   │                   ├─► /score    Gemini 2.0 Flash (structured JSON) ──► fit %, gaps, pitch
+   │                   ├─► /score    Gemini Flash (structured JSON) ──► fit %, gaps, pitch
    │                   └─► /digest   Telegram: today's roles + follow-ups due ☀️
    │
    └─ Monday 9 AM ──► POST /outreach/weekly-review ──► Telegram: sends, replies, reply-rate 📊
