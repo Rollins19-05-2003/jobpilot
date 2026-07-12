@@ -135,7 +135,8 @@ def draft(profile: dict, contact: dict, company: dict,
     if not config.GEMINI_API_KEY:
         log.error("GEMINI_API_KEY not set — cannot draft")
         return None
-    url = config.GEMINI_URL.format(model=config.GEMINI_MODEL, key=config.GEMINI_API_KEY)
+    # Drafts get the stronger model — there are few of them and tone matters.
+    url = config.GEMINI_URL.format(model=config.DRAFT_MODEL, key=config.GEMINI_API_KEY)
     body = {
         "contents": [{"parts": [{"text": build_prompt(profile, contact, company, version, original)}]}],
         "generationConfig": {

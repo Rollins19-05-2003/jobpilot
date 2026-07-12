@@ -6,8 +6,12 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # repo root
 
 # --- LLM (Gemini free tier) ---
+# Model cascade: the lite model bulk-scores ~30 JDs/day (high free-tier RPD);
+# the stronger flash model only writes outreach drafts (a handful/day —
+# gemini-3.5-flash free tier is just 20 req/day, so it can't do both).
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.1-flash-lite")
+DRAFT_MODEL = os.getenv("DRAFT_MODEL", "gemini-3.5-flash")
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
     "{model}:generateContent?key={key}"
