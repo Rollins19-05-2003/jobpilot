@@ -28,6 +28,10 @@ DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'jobpilot.db'}"
 STRONG_FIT = int(os.getenv("STRONG_FIT_THRESHOLD", "75"))
 MIN_FIT_TO_KEEP = int(os.getenv("MIN_FIT_TO_KEEP", "40"))
 
+# Pause between Gemini calls — free tier allows ~10 req/min and bursts get 429s.
+# 6s ≈ 10/min. The daily run is a cron job; nobody is waiting on it.
+SCORE_DELAY_SECONDS = float(os.getenv("SCORE_DELAY_SECONDS", "6"))
+
 # --- Target companies (Greenhouse / Lever board slugs) ---
 # Find a company's slug from its careers page URL:
 #   boards.greenhouse.io/<slug>   |   jobs.lever.co/<slug>

@@ -56,6 +56,8 @@ def ingest() -> dict:
 @app.post("/score")
 def score(limit: int = 30) -> dict:
     """Score unscored jobs. `limit` keeps us well inside Gemini's free tier."""
+    import time
+
     profile = config.load_profile()
     scored = failed = 0
     with SessionLocal() as s:
@@ -63,7 +65,9 @@ def score(limit: int = 30) -> dict:
             s.query(Job).filter(Job.fit_score.is_(None), Job.status == "found")
             .order_by(Job.created_at.desc()).limit(limit).all()
         )
-        for job in pending:
+        for i, job in enumerate(pending):
+            if i:
+                time.sleep(config.SCORE_DELAY_SECONDS)  # stay under free-tier RPM
             result = score_job(profile, {
                 "company": job.company, "title": job.title,
                 "location": job.location, "jd_text": job.jd_text or "",
